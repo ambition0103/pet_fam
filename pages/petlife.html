@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/petlife.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class="mainLogo">
+        <a onclick="goTohome()">
+            <img class="mainLogoImg" src="assets/img/miniLogo.jpg" alt="">
+        </a>
+    </div>
+    <div class="profile">
+        <div>
+            <img id="profileImg" src="/assets/blankProfile.webp" alt="프로필">
+            <button class="logoutBtn" id="logoutBtn" onclick="logout()">로그아웃</button>
+            <button class="mypageBtn" id="mypageBtn" onclick="goToProfile()">마이페이지</button>
+        </div>
+    </div>
+
+    <header class="logo"></header>
+    <nav id="main-nav">
+        <button class="introBtn" onclick="goTointro()">pet-fam 이란</button>
+        <button class="petlifeBtn" onclick="goTopetlife()">애견 일상</button>
+    </nav>
+    </div>
+
+
+
+    <div class="mypost">
+        <div class="form-floating mb-3">
+            <img id="profileImg_writer" width="50px" height="50px" src="/assets/blankProfile.webp" />
+            <span id="nickname">닉네임</span>
+        </div>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                style="height: 100px"></textarea>
+            <label for="floatingTextarea2">응원댓글</label>
+            <input type="file" name="petPhoto" id="petPhoto" accept="image/*">
+        </div>
+
+        <button onclick="save_comment(event)" type="button" class="btn btn-dark">응원 남기기</button>
+    </div>
+    <div id="comment-list">
+
+    </div>
+</body>
+
+</html>
