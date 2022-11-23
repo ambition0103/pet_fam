@@ -19,18 +19,32 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 export const save_comment = async (event) => {
   event.preventDefault();
 
+  // // Create a root reference
+  // const storage = getStorage();
+
+  // // Create a reference to 'mountains.jpg'
+  // const mountainsRef = ref(storage, 'mountains.jpg');
+
+  // // Create a reference to 'images/mountains.jpg'
+  // const mountainImagesRef = ref(storage, 'images/mountains.jpg');
+
+  // // While the file names are the same, the references point to different files
+  // mountainsRef.name === mountainImagesRef.name;           // true
+  // mountainsRef.fullPath === mountainImagesRef.fullPath;   // false 
+
   const imgRef = ref(
     storageService,
-    `imgfile/${uuidv4()}`
+    `petImgfolder/${uuidv4()}`
   );
-  const imgDataUrl = localStorage.getItem("imgDataUrl");
+
+  // 프로필 이미지 dataUrl을 Storage에 업로드 후 다운로드 링크를 받아서 photoURL에 저장.
+  const imgDataUrl2 = localStorage.getItem("imgDataUrl");
   let downloadUrl;
-  console.log("123444")
-  if (imgDataUrl) {
-    console.log("123")
-    const response = await uploadString(imgRef, imgDataUrl, "data_url");
+  if (imgDataUrl2) {
+    const response = await uploadString(imgRef, imgDataUrl2, "data_url");
     downloadUrl = await getDownloadURL(response.ref);
   }
+
 
 
   const comment = document.getElementById("comment");
@@ -49,6 +63,20 @@ export const save_comment = async (event) => {
     alert(error);
     console.log("error in addDoc:", error);
   }
+};
+
+export const onimgChange = (event) => {
+  console.log("사진 업로드 변경")
+  const theFile = event.target.files[0]; // file 객체
+  console.log(theFile)
+  const reader = new FileReader();
+  console.log(reader)
+  reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
+  reader.onloadend = (finishedEvent) => {
+    // 파일리더가 파일객체를 data URL로 변환 작업을 끝났을 때
+    const imgDataUrl = finishedEvent.currentTarget.result;
+    localStorage.setItem("imgDataUrl", imgDataUrl);
+  };
 };
 
 export const onEditing = (event) => {

@@ -8,6 +8,7 @@ import {
   update_comment,
   onEditing,
   delete_comment,
+  onimgChange,
 } from "./pages/fanLog.js";
 
 // url 바뀌면 handleLocation 실행하여 화면 변경
@@ -50,3 +51,4 @@ window.delete_comment = delete_comment;
 window.goTopetlife = goTopetlife;
 window.goTointro = goTointro;
 window.goTohome = goTohome;
+window.onimgChange = onimgChange;
