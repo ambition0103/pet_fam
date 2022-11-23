@@ -91,10 +91,15 @@ export const onToggle = () => {
     authBtn.value = "회원가입";
     authToggle.textContent = "로그인 하러가기!";
     authTitle.textContent = "회원가입";
+
+    document.getElementById("background").style.backgroundImage = "url('/assets/cat.jpg')";
   } else {
     authBtn.value = "로그인";
     authToggle.textContent = "회원가입 하러가자!";
     authTitle.textContent = "로그인";
+
+    console.log(document.getElementById("background").style)
+    document.getElementById("background").style.backgroundImage = "url('/assets/ppp.jpg')";
   }
 };
 
