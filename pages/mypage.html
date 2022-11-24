@@ -121,7 +121,9 @@
     background-color: whitesmoke;
     margin-top: -1px;
   }
-
+  .my-contents {
+    border-radius: 0 0 10px 10px;
+  }
   .my-content {
     border: 1px solid black;
     margin: 5px 0;
@@ -217,8 +219,8 @@
     align-items: center;
   }
   .user-icon {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     z-index: 10;
     overflow: hidden;
     border: 2px solid whitesmoke;
@@ -234,20 +236,6 @@
     font-size: 20px;
     font-weight: 800;
     padding-top: 15px;
-  }
-
-  .user-bg {
-    position: absolute;
-    width: 100%;
-    height: 50%;
-    top: 0;
-    overflow: hidden;
-    z-index: 1;
-  }
-  .user-bg img {
-    overflow: hidden;
-    border-radius: 10px 10px 0 0;
-    width: 100%;
   }
 
   /* 이동 버튼 */
@@ -283,16 +271,33 @@
   .logoutBtn {
     width: 150px;
   }
-
+  .my-content-list {
+    border-radius: 10px;
+  }
   .new-post-btn,
   .close-newpost-btn {
     margin-top: 10px;
   }
+  .post-new-comment input[type="text"],
+  .post-new-comment textarea {
+    border: none;
+  }
+
+  .content-modal-container input[type="text"],
+  .content-modal-container textarea {
+    border: none;
+  }
+
+  .user-profile {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
   .post-new-comment {
     background-color: whitesmoke;
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding: 30px 0;
   }
   .post-new-comment > div {
     display: flex;
@@ -374,6 +379,8 @@
   }
   .modal-date {
     opacity: 0;
+    position: absolute;
+    top: 0;
   }
 
   .modal-close {
@@ -400,7 +407,7 @@
   }
   .modal-text {
     background-color: whitesmoke;
-    height: 130px;
+    height: 150px;
     padding: 15px;
     width: 100%;
     word-break: break-all;
@@ -416,6 +423,7 @@
     bottom: 10px;
     z-index: 70;
     right: 20px;
+    display: none;
   }
 
   .open-modal {
@@ -430,8 +438,10 @@
       width: 80%;
     }
     .user-icon img {
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
+      border-radius: 13px;
+      border: 2px solid whitesmoke;
     }
     .content {
       width: 100%;
@@ -447,10 +457,11 @@
       display: flex;
       flex-direction: column;
     }
-
     .user-icon img {
       width: 130px;
       height: 130px;
+      border: 2px solid whitesmoke;
+      border-radius: 13px;
     }
     .content {
       height: 200px;
@@ -543,12 +554,6 @@
           src="https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/309/59932b0eb046f9fa3e063b8875032edd_crop.jpeg"
         />
       </div>
-      <div class="user-bg">
-        <img
-          src="https://cdn.pixabay.com/photo/2017/06/04/16/31/stars-2371478_960_720.jpg"
-          alt=""
-        />
-      </div>
       <div class="user-name">닉네임</div>
       <button onclick="openPost()" class="new-post-btn btn">글쓰기</button>
       <button onclick="closePost()" class="close-newpost-btn btn">접기</button>
@@ -571,15 +576,16 @@
         <label for="new-comment-title">제목<sup class="required">*</sup></label>
         <input
           type="text"
-          placeholder="제목을 입력하세요 (필수 입력)"
+          placeholder="제목을 입력하세요."
           id="new-comment-title"
           class="new-comment-title"
           maxlenth="10"
+          data-limit="10"
           required
         />
         <label for="">내용<sup class="required">*</sup></label>
         <textarea
-          placeholder="내용을 입력하세요 (필수 입력)"
+          placeholder="내용을 입력하세요."
           class="new-comment-text"
           cols="30"
           rows="3"

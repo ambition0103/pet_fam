@@ -16,7 +16,6 @@ import {
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
-
 import { updateProfile } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 export const printMyCommentList = async () => {
@@ -216,12 +215,16 @@ export const modalEdit = async (event) => {
   const target = document.querySelector(".modal-date").textContent;
   let commentRef = await doc(db, "comments", target);
 
+  newPhotoIpt.style.display = "none";
+
   if (newTitle.length > 10 || newTitle.length < 1) {
     alert("제목은 1글자 이상 10글자 이하로 적어주세요");
+    newPhotoIpt.style.display = "flex";
     titleIpt.focus();
     return;
   } else if (newText.length > 60 || newText.length < 1) {
     alert("내용은 1글자 이상 60글자 이하로 적어주세요");
+    newPhotoIpt.style.display = "flex";
     textIpt.focus();
     return;
   } else {
@@ -249,8 +252,8 @@ export const modalEdit = async (event) => {
         textIpt.style.display = "none";
         newPhotoIpt.style.display = "none";
 
-        title.style.display = "flex";
-        text.style.display = "flex";
+        title.style.display = "inline-block";
+        text.style.display = "inline-block";
 
         title.innerText = newTitle;
         text.innerText = newText;
@@ -272,8 +275,8 @@ export const modalEdit = async (event) => {
         titleIpt.style.display = "none";
         textIpt.style.display = "none";
 
-        title.style.display = "flex";
-        text.style.display = "flex";
+        title.style.display = "block";
+        text.style.display = "block";
 
         title.innerText = newTitle;
         text.innerText = newText;

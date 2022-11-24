@@ -32,6 +32,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    border: 1px solid #252525;
+    padding: 40px 0;
+    box-sizing: border-box;
+    margin-inline: auto;
+    width: min(70vw, 300px);
+    margin-top: 50px;
   }
   .hiddenIpt {
     display: none;
@@ -42,17 +48,18 @@
   .new-user-nicknames {
     width: 100%;
     margin: 20px 0;
-    padding: 5px 10px;
+    padding: 2px 10px;
   }
 
   .new-user-nickname {
     padding: 5px 10px;
+    margin-top: 10px;
   }
 
   .new-nicknames {
     text-align: center;
     margin: 30px 0;
-    font-size: 18px;
+    font-size: 16px;
   }
   .profile > h1 {
     top: 30px;
@@ -63,10 +70,19 @@
     top: 35px;
     left: 0;
   }
+  .profile_to_mypage {
+    position: absolute;
+    top: 50px;
+  }
+  .profile_to_mypage {
+    z-index: 1;
+  }
 </style>
 
 <div class="container">
-  <button onclick="goTomypage()" class="btn">마이페이지로 돌아가기</button>
+  <button onclick="goTomypage()" class="profile_to_mypage btn">
+    마이 페이지로
+  </button>
   <form onsubmit="onChangeProfile(event)" class="profile">
     <div class="change-profile-container">
       <label class="preview-user-icon" for="new-user-icon-ipt">
