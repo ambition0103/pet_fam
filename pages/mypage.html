@@ -87,13 +87,13 @@
   .container {
     width: 90vw;
     margin: 0 auto;
-    /* margin-top: 50px; */
+    margin-bottom: 70px;
     position: relative;
   }
 
   .edit-profile-btn {
     position: absolute;
-    z-index: 100;
+    z-index: 10;
     top: 10px;
     right: 10px;
   }
@@ -161,11 +161,12 @@
   }
   .my-content-desc {
     padding: 10px 0 0 7px;
-    display: -webkit-box;
+    display: -webkit-inline-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 120%;
+    word-break: break-all;
   }
 
   /* 게시글 정보란 */
@@ -177,7 +178,6 @@
   .content-user-icon img {
     width: 30px;
     height: 30px;
-
     border-radius: 3px;
   }
 
@@ -195,7 +195,7 @@
   .my-content-header {
     display: flex;
     align-items: center;
-    padding: 6px 3px 3px 4px;
+    padding: 6px 3px 6px 4px;
     border-top: 1px solid black;
     border-radius: 0 0 3px 3px;
     justify-content: space-between;
@@ -217,14 +217,17 @@
     align-items: center;
   }
   .user-icon {
+    width: 100px;
+    height: 100px;
     z-index: 10;
+    overflow: hidden;
+    border: 2px solid whitesmoke;
+    border-radius: 13px;
   }
   .user-icon img {
-    width: 150px;
-    height: 150px;
-    border-radius: 13px;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
-    border: 2px solid whitesmoke;
   }
 
   .user-name {
@@ -280,59 +283,9 @@
   .logoutBtn {
     width: 150px;
   }
-  .content-modal-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-  }
-  .contents-modal {
-    position: relative;
-    background-color: palevioletred;
-    width: 300px;
-    height: 400px;
-    text-align: center;
-    padding: 10px;
-    display: none;
-  }
 
-  .modal-title {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  .modal-close {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-  }
-  .contents-modal > div {
-    height: 100%;
-    background-color: whitesmoke;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-  .modal-texts {
-    display: flex;
-    flex-direction: column;
-  }
-  .modal-title-ipt,
-  .modal-text-ipt {
-    display: none;
-  }
-  .modal-text-ipt {
-    margin-top: 10px;
-  }
-  .modal-edit-confirm-btn {
-    display: none;
-  }
-  .modal-date {
-    opacity: 0;
-  }
-
-  .new-post-btn {
+  .new-post-btn,
+  .close-newpost-btn {
     margin-top: 10px;
   }
   .post-new-comment {
@@ -344,22 +297,132 @@
   .post-new-comment > div {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 80%;
   }
+
   .preview-photo {
     width: 200px;
     height: 200px;
-    background-color: chocolate;
   }
-  .post-new-comment input,
+  .post-new-comment input[type="text"],
+  .post-new-comment input[type="file"],
   .post-new-comment textarea {
     margin: 10px 0;
     width: 100%;
   }
+
+  .post-new-comment input[type="text"],
+  .post-new-comment textarea {
+    padding: 10px;
+  }
   .new-comment-photo {
     cursor: pointer;
+    margin-inline: auto;
+    margin-bottom: 10px;
   }
+
+  .save-new-comment {
+    width: 115px;
+  }
+  .required {
+    color: red;
+  }
+
+  .content-modal-container {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+  }
+  .contents-modal {
+    background-color: #f7c3cf;
+    width: 300px;
+    height: 500px;
+    position: relative;
+    padding: 5px 15px;
+  }
+
+  .contents-modal > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .modal-photo-container {
+    width: 200px;
+    height: 200px;
+    margin: 15px 0;
+    overflow: hidden;
+    margin-inline: auto;
+  }
+  .modal-photo {
+    width: 200px;
+    height: 200px;
+  }
+  .modal-title-ipt,
+  .modal-text-ipt {
+    display: none;
+    width: 100%;
+  }
+  .modal-title-ipt {
+    margin: 3px 0;
+  }
+  .modal-text-ipt {
+    height: 115px;
+  }
+  .modal-date {
+    opacity: 0;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    margin: 3px 3px 0 0;
+  }
+
+  .modal-btns {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    right: 0;
+  }
+  .modal-title {
+    font-weight: 800;
+    text-align: center;
+    font-size: 18px;
+    margin: 5px 0;
+  }
+  .modal-text {
+    background-color: whitesmoke;
+    height: 130px;
+    padding: 15px;
+    width: 100%;
+    word-break: break-all;
+  }
+  .modal-user {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
+  }
+
+  .top-btn {
+    position: fixed;
+    bottom: 10px;
+    z-index: 70;
+    right: 20px;
+  }
+
+  .open-modal {
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+  }
+
   /* 미디어쿼리 */
   @media (max-width: 358px) {
     .my-content,
@@ -409,10 +472,20 @@
     }
   }
 </style>
+<button class="top-btn btn" onclick="goToTop(event)">TOP</button>
 <div class="content-modal-container">
   <div class="contents-modal">
     <div>
-      <button onclick="closeModal(event)" class="modal-close">닫기</button>
+      <button onclick="closeModal(event)" class="modal-close">X</button>
+      <div class="modal-photo-container">
+        <img class="modal-photo" src="" />
+      </div>
+      <input
+        type="file"
+        class="add-new-photo"
+        accept="images/*"
+        onchange="changePostImg(event)"
+      />
       <div class="modal-texts">
         <input type="text" class="modal-title-ipt" />
         <div class="modal-title"></div>
@@ -421,16 +494,18 @@
       </div>
       <div class="modal-info">
         <div class="modal-user"></div>
-        <div class="modal-date">날짜</div>
+        <div class="modal-date"></div>
       </div>
       <div class="modal-btns">
-        <button class="modal-edit-btn" onclick="modalOpenEdit(event)">
+        <button class="modal-edit-btn btn" onclick="modalOpenEdit(event)">
           수정
         </button>
-        <button class="modal-edit-confirm-btn" onclick="modalEdit(event)">
+        <button class="modal-edit-confirm-btn btn" onclick="modalEdit(event)">
           확인
         </button>
-        <button onclick="modalDel(event)" class="modal-del-btn">삭제</button>
+        <button onclick="modalDel(event)" class="modal-del-btn btn">
+          삭제
+        </button>
       </div>
     </div>
   </div>
@@ -475,7 +550,8 @@
         />
       </div>
       <div class="user-name">닉네임</div>
-      <button class="new-post-btn">글쓰기</button>
+      <button onclick="openPost()" class="new-post-btn btn">글쓰기</button>
+      <button onclick="closePost()" class="close-newpost-btn btn">접기</button>
     </div>
     <form class="post-new-comment">
       <div>
@@ -492,24 +568,28 @@
           accept="images/*"
           onchange="onPhotoUploaded(event)"
         />
+        <label for="new-comment-title">제목<sup class="required">*</sup></label>
         <input
           type="text"
-          placeholder="제목을 입력하세요"
+          placeholder="제목을 입력하세요 (필수 입력)"
+          id="new-comment-title"
           class="new-comment-title"
+          maxlenth="10"
+          required
         />
+        <label for="">내용<sup class="required">*</sup></label>
         <textarea
-          placeholder="내용을 입력하세요"
+          placeholder="내용을 입력하세요 (필수 입력)"
           class="new-comment-text"
           cols="30"
-          rows="7"
+          rows="3"
+          required
         ></textarea>
       </div>
-
-      <button>접기</button>
       <input
         type="submit"
         value="등록하기"
-        class="save-new-comment"
+        class="save-new-comment btn"
         onclick="createNewComment(event)"
       />
     </form>

@@ -12,14 +12,16 @@ import {
 import { db, authService, storageService } from "../firebase.js";
 import {
   ref,
-  getStorage,
   uploadString,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
-import { onFileChange } from "./profile.js";
+
+import { updateProfile } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 
 export const printMyCommentList = async () => {
+  localStorage.removeItem("setNewProFileImg");
+  localStorage.removeItem("contentimgDataUrl");
   let cmtObjList = [];
   const currentUid = authService.currentUser.uid;
 
@@ -66,7 +68,7 @@ export const printMyCommentList = async () => {
             }</div>
           </div>
           <div></div>
-          <div><button onclick="openModal(event)" id=${
+          <div><button class="btn" onclick="openModal(event)" id=${
             cmtObj.id
           }>더보기</button></div>
       </div>`;
@@ -79,18 +81,29 @@ export const printMyCommentList = async () => {
 
 export const openModal = async (event) => {
   event.preventDefault();
+
   const target = event.target.id;
-  console.log(target);
   const modal = document.querySelector(".contents-modal");
   const modal_container = document.querySelector(".content-modal-container");
   const delBtn = document.querySelector(".modal-del-btn");
+  const editConfirmBtn = document.querySelector(".modal-edit-confirm-btn");
+  const newPhotoIpt = document.querySelector(".add-new-photo");
+  const modalBg = document.querySelector(".content-modal-container");
+
   delBtn.style.display = "inline-block";
   modal_container.style.zIndex = 50;
+  modal_container.style.display = "flex";
   modal.style.display = "block";
+  editConfirmBtn.style.display = "none";
+  newPhotoIpt.style.display = "none";
+  modalBg.classList.add("open-modal");
+  document.querySelector("body").style.overflowY = "hidden";
+
   try {
     let commentRef = await getDoc(doc(db, "comments", target));
     let loc = commentRef._document.data.value.mapValue.fields;
 
+    const img = document.querySelector(".modal-photo");
     const title = document.querySelector(".modal-title");
     const text = document.querySelector(".modal-text");
     const user = document.querySelector(".modal-user");
@@ -100,6 +113,10 @@ export const openModal = async (event) => {
     user.innerText = `- ${authService.currentUser.displayName} -`;
     text.innerText = loc.text.stringValue;
     id.innerText = target;
+
+    img.src =
+      loc.commentImg.stringValue ??
+      "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
   } catch (error) {
     alert(error);
   }
@@ -112,6 +129,7 @@ export const closeModal = (event) => {
 
   modal_container.style.zIndex = 0;
   modal.style.display = "none";
+  modal_container.style.display = "none";
 
   const title = document.querySelector(".modal-title");
   const text = document.querySelector(".modal-text");
@@ -123,6 +141,7 @@ export const closeModal = (event) => {
 
   const titleIpt = document.querySelector(".modal-title-ipt");
   const textIpt = document.querySelector(".modal-text-ipt");
+  const newPhotoIpt = document.querySelector(".add-new-photo");
 
   title.style.display = "block";
   text.style.display = "block";
@@ -134,6 +153,15 @@ export const closeModal = (event) => {
 
   editConfirmBtn.style.display = "none";
   editBtn.style.display = "inline-block";
+
+  const modalBg = document.querySelector(".content-modal-container");
+
+  modalBg.classList.remove("open-modal");
+  document.querySelector("body").style.overflowY = "scroll";
+
+  document.querySelector(".modal-photo").src =
+    "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+  newPhotoIpt.value = "";
 };
 
 export const modalOpenEdit = (event) => {
@@ -144,6 +172,7 @@ export const modalOpenEdit = (event) => {
 
   const titleIpt = document.querySelector(".modal-title-ipt");
   const textIpt = document.querySelector(".modal-text-ipt");
+  const newPhotoIpt = document.querySelector(".add-new-photo");
 
   const titleText = title.textContent;
   const textText = text.textContent;
@@ -152,6 +181,8 @@ export const modalOpenEdit = (event) => {
   text.style.display = "none";
   titleIpt.style.display = "block";
   textIpt.style.display = "block";
+
+  newPhotoIpt.style.display = "inline-block";
 
   titleIpt.value = titleText;
   textIpt.value = textText;
@@ -173,14 +204,11 @@ export const modalEdit = async (event) => {
 
   const titleIpt = document.querySelector(".modal-title-ipt");
   const textIpt = document.querySelector(".modal-text-ipt");
+  const newPhotoIpt = document.querySelector(".add-new-photo");
 
   const editBtn = document.querySelector(".modal-edit-btn");
   const delBtn = document.querySelector(".modal-del-btn");
   const editConfirmBtn = document.querySelector(".modal-edit-confirm-btn");
-
-  editBtn.style.display = "inline-block";
-  delBtn.style.display = "inline-block";
-  editConfirmBtn.style.display = "none";
 
   const newTitle = titleIpt.value;
   const newText = textIpt.value;
@@ -188,34 +216,87 @@ export const modalEdit = async (event) => {
   const target = document.querySelector(".modal-date").textContent;
   let commentRef = await doc(db, "comments", target);
 
-  try {
-    await updateDoc(commentRef, { text: newText, title: newTitle });
+  if (newTitle.length > 10 || newTitle.length < 1) {
+    alert("제목은 1글자 이상 10글자 이하로 적어주세요");
+    titleIpt.focus();
+    return;
+  } else if (newText.length > 60 || newText.length < 1) {
+    alert("내용은 1글자 이상 60글자 이하로 적어주세요");
+    textIpt.focus();
+    return;
+  } else {
+    if (localStorage.changePostImg !== undefined) {
+      const imgRef = ref(
+        storageService,
+        `${authService.currentUser.uid}/${uuidv4()}`
+      );
 
-    titleIpt.style.display = "none";
-    textIpt.style.display = "none";
+      const changePostImg = localStorage.getItem("changePostImg");
+      let downloadUrl;
+      if (changePostImg) {
+        const response = await uploadString(imgRef, changePostImg, "data_url");
+        downloadUrl = await getDownloadURL(response.ref);
+      }
 
-    title.style.display = "inline-block";
-    text.style.display = "inline-block";
+      try {
+        await updateDoc(commentRef, {
+          text: newText,
+          title: newTitle,
+          commentImg: changePostImg,
+        });
 
-    title.innerText = newTitle;
-    text.innerText = newText;
-    printMyCommentList();
-  } catch (error) {
-    alert(error);
+        titleIpt.style.display = "none";
+        textIpt.style.display = "none";
+        newPhotoIpt.style.display = "none";
+
+        title.style.display = "flex";
+        text.style.display = "flex";
+
+        title.innerText = newTitle;
+        text.innerText = newText;
+
+        editBtn.style.display = "inline-block";
+        delBtn.style.display = "inline-block";
+        editConfirmBtn.style.display = "none";
+
+        localStorage.removeItem("changePostImg");
+
+        printMyCommentList();
+      } catch (error) {
+        alert(error);
+      }
+    } else {
+      try {
+        await updateDoc(commentRef, { text: newText, title: newTitle });
+
+        titleIpt.style.display = "none";
+        textIpt.style.display = "none";
+
+        title.style.display = "flex";
+        text.style.display = "flex";
+
+        title.innerText = newTitle;
+        text.innerText = newText;
+
+        editBtn.style.display = "inline-block";
+        delBtn.style.display = "inline-block";
+        editConfirmBtn.style.display = "none";
+
+        printMyCommentList();
+      } catch (error) {
+        alert(error);
+      }
+    }
   }
 };
 
 export const modalDel = async (event) => {
   event.preventDefault();
   const target = document.querySelector(".modal-date").textContent;
-  //   const ok = window.confirm("해당 응원글을 정말 삭제하시겠습니까?");
-  console.log(target);
   try {
-    let a = await deleteDoc(doc(db, "comments", target));
-    console.log(a);
+    await deleteDoc(doc(db, "comments", target));
     const modal = document.querySelector(".contents-modal");
     const modal_container = document.querySelector(".content-modal-container");
-
     modal_container.style.zIndex = 0;
     modal.style.display = "none";
     printMyCommentList();
@@ -238,29 +319,44 @@ export const createNewComment = async (event) => {
     const response = await uploadString(imgRef, contentimgDataUrl, "data_url");
     downloadUrl = await getDownloadURL(response.ref);
   }
-  const text = document.querySelector(".new-comment-title");
-  const title = document.querySelector(".new-comment-text");
+  const title = document.querySelector(".new-comment-title");
+  const text = document.querySelector(".new-comment-text");
   const { uid } = authService.currentUser;
 
-  try {
-    await addDoc(collection(db, "comments"), {
-      title: title.value,
-      text: text.value,
-      createdAt: Date.now(),
-      creatorId: uid,
-      profileImg: authService.currentUser.photoURL,
-      nickname: authService.currentUser.displayName,
-      commentImg: downloadUrl,
-    });
-    printMyCommentList();
-    title.value = "";
-    text.value = "";
-    document.querySelector(".preview-photo").src =
-      "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
-    document.querySelector(".new-comment-photo").value = "";
-  } catch (error) {
-    alert(error);
-    console.log("error in addDoc:", error);
+  if (title.value === "" || text.value === "") {
+    alert("제목과 내용을 모두 적어주세요!");
+    title.focus();
+    return;
+  } else if (title.value.length > 10) {
+    alert("제목은 10글자 이하로 적어주세요");
+    title.focus();
+    return;
+  } else if (text.value.length > 60) {
+    alert("내용은 30글자 이하로 적어주세요");
+    text.focus();
+    return;
+  } else {
+    try {
+      await addDoc(collection(db, "comments"), {
+        title: title.value,
+        text: text.value,
+        createdAt: Date.now(),
+        creatorId: uid,
+        profileImg: authService.currentUser.photoURL,
+        nickname: authService.currentUser.displayName,
+        commentImg: downloadUrl ?? null,
+      });
+      printMyCommentList();
+      title.value = "";
+      text.value = "";
+      document.querySelector(".preview-photo").src =
+        "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+      document.querySelector("#new-comment-photo").value = "";
+      localStorage.removeItem("contentimgDataUrl");
+      document.querySelector(".post-new-comment").style.display = "none";
+    } catch (error) {
+      alert(error);
+    }
   }
 };
 
@@ -278,4 +374,91 @@ export const onPhotoUploaded = async (event) => {
     localStorage.setItem("contentimgDataUrl", contentimgDataUrl);
     document.querySelector(".preview-photo").src = contentimgDataUrl;
   };
+};
+
+export const openPost = (event) => {
+  document.querySelector(".post-new-comment").style.display = "flex";
+  document.querySelector(".close-newpost-btn").style.display = "inline-block";
+  document.querySelector(".new-post-btn").style.display = "none";
+};
+
+export const closePost = (event) => {
+  document.querySelector(".post-new-comment").style.display = "none";
+  document.querySelector(".close-newpost-btn").style.display = "none";
+  document.querySelector(".new-post-btn").style.display = "inline-block";
+  document.querySelector(".new-comment-photo").value = "";
+  document.querySelector(".new-comment-title").value = "";
+  document.querySelector(".new-comment-text").value = "";
+  localStorage.removeItem("contentimgDataUrl");
+  localStorage.removeItem("changePostImg");
+};
+
+export const changePostImg = (event) => {
+  event.preventDefault();
+
+  const theFile = event.target.files[0]; // file 객체
+  const reader = new FileReader();
+  reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
+
+  reader.onloadend = (finishedEvent) => {
+    // 파일리더가 파일객체를 data URL로 변환 작업을 끝났을 때
+    const changePostImg = finishedEvent.currentTarget.result;
+
+    localStorage.setItem("changePostImg", changePostImg);
+    document.querySelector(".modal-photo").src = "";
+    document.querySelector(".modal-photo").src = changePostImg;
+  };
+};
+
+export const goToTop = (event) => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
+export const changeUserProfileImg = async (event) => {
+  event.preventDefault();
+  const theFile = event.target.files[0]; // file 객체
+  const reader = new FileReader();
+  reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
+
+  reader.onloadend = (finishedEvent) => {
+    // 파일리더가 파일객체를 data URL로 변환 작업을 끝났을 때
+    const setNewProFileImg = finishedEvent.currentTarget.result;
+
+    localStorage.setItem("setNewProFileImg", setNewProFileImg);
+    document.querySelector(".preview-user-icon > img").src = setNewProFileImg;
+  };
+};
+
+export const onChangeProfile = async (event) => {
+  event.preventDefault();
+  document.querySelector(".submit-change-profile").disabled = true;
+
+  let currentNickName = authService.currentUser.displayName;
+  let currentProfileImg = authService.currentUser.photoURL;
+  const imgRef = ref(
+    storageService,
+    `${authService.currentUser.uid}/${uuidv4()}`
+  );
+  const contentimgDataUrl = localStorage.getItem("setNewProFileImg");
+  const newNickname = document.querySelector(".new-user-nickname").value;
+
+  let downloadUrl;
+  if (contentimgDataUrl) {
+    const response = await uploadString(imgRef, contentimgDataUrl, "data_url");
+    downloadUrl = await getDownloadURL(response.ref);
+  }
+  await updateProfile(authService.currentUser, {
+    displayName: newNickname ? newNickname : currentNickName,
+    photoURL: downloadUrl ? downloadUrl : currentProfileImg,
+  })
+    .then(() => {
+      printMyCommentList();
+      localStorage.removeItem("setNewProFileImg");
+      alert("프로필 수정 완료");
+      window.location.hash = "#mypage";
+    })
+    .catch((error) => {
+      alert("프로필 수정 실패");
+      console.log("error:", error);
+    });
 };

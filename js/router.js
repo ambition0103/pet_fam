@@ -39,9 +39,9 @@ export const handleLocation = async () => {
   }
   if (path === "changeprofile") {
     // 프로필 관리 화면 일 때 현재 프로필 사진과 닉네임 할당
-    document.getElementById("profileView").src =
+    document.querySelector(".preview-user-icon > img").src =
       authService.currentUser.photoURL ?? "/assets/blankProfile.webp";
-    document.getElementById("profileNickname").placeholder =
+    document.querySelector(".new-user-nickname").placeholder =
       authService.currentUser.displayName ?? "닉네임 없음";
   }
 
@@ -70,6 +70,8 @@ export const handleLocation = async () => {
     document.querySelector(".user-bg > img").src =
       authService.currentUser.bgphotoURL ??
       "https://www.poynter.org/wp-content/uploads/2019/01/background.png";
+    document.querySelector(".post-new-comment").style.display = "none";
+    document.querySelector(".close-newpost-btn").style.display = "none";
 
     printMyCommentList();
   }
