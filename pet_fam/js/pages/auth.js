@@ -89,19 +89,23 @@ export const onToggle = () => {
   const authTitle = document.querySelector("#authTitle");
   if (authBtn.value === "로그인") {
     authBtn.value = "회원가입";
-    authToggle.textContent = "로그인 하러가기!";
+    authToggle.textContent = "로그인 하러멍!";
     authTitle.textContent = "회원가입";
-
-    document.getElementById("background").style.backgroundImage = "url('/assets/cat.jpg')";
+    document.getElementById("background").style.backgroundImage = "url('/assets/dog.jpg')";
   } else {
     authBtn.value = "로그인";
-    authToggle.textContent = "회원가입 하러가자!";
+    authToggle.textContent = "회원가입 하러가쟈옹!";
     authTitle.textContent = "로그인";
+    document.getElementById("background").style.backgroundImage = "url('/assets/cat.jpg')";
 
-    console.log(document.getElementById("background").style)
-    document.getElementById("background").style.backgroundImage = "url('/assets/ppp.jpg')";
   }
 };
+
+
+function changeImg() {
+  document.getElementById("imgheart").src = "../img/fullheart-bt.png";
+  document.body.style.backgroundImage = "url('../img/heartbackground.gif')";
+}
 
 export const socialLogin = (event) => {
   const { name } = event.target;
