@@ -29,7 +29,6 @@ export const save_comment = async (event) => {
   let downloadUrl;
   if (imgDataUrl2) {
     const response = await uploadString(imgRef, imgDataUrl2, "data_url");
-    console.log("response는", response)
     downloadUrl = await getDownloadURL(response.ref);
   }
 
@@ -44,7 +43,6 @@ export const save_comment = async (event) => {
       creatorId: uid,
       profileImg: photoURL,
       nickname: displayName,
-      petphoto: downloadUrl,
     });
     comment.value = "";
     getCommentList();
@@ -54,9 +52,10 @@ export const save_comment = async (event) => {
   }
 };
 
-// 업로드할 파일을 url버전으로 바꿔준 후에 localStorage에 저장해주는 함수  
 export const onimgChange = (event) => {
+  console.log("사진 업로드 변경")
   const theFile = event.target.files[0]; // file 객체
+  console.log(theFile)
   const reader = new FileReader();
   console.log(reader)
   reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
@@ -118,8 +117,6 @@ export const delete_comment = async (event) => {
   }
 };
 
-
-
 export const getCommentList = async () => {
   let cmtObjList = [];
   const q = query(
@@ -137,15 +134,12 @@ export const getCommentList = async () => {
   const commnetList = document.getElementById("comment-list");
   const currentUid = authService.currentUser.uid;
   commnetList.innerHTML = "";
-  console.log(cmtObjList)
   cmtObjList.forEach((cmtObj) => {
     const isOwner = currentUid === cmtObj.creatorId;
     const temp_html = `<div class="card commentCard">
           <div class="card-body">
               <blockquote class="blockquote mb-0">
                   <p class="commentText">${cmtObj.text}</p>
-                  <p> <img class="cmtImg" width="100px" height="100px" src="${cmtObj.petphoto
-      }" alt="profileImg" /></p>
                   <p id="${cmtObj.id
       }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
                   <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${cmtObj.profileImg

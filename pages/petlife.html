@@ -44,9 +44,10 @@
             <textarea class="form-control" placeholder="Leave a comment here" id="comment"
                 style="height: 100px"></textarea>
             <label for="floatingTextarea2">응원댓글</label>
+            <!-- 파일 변경 버튼  -> 역할은 해당 파일을 로컬스토리지(브라우저)에 저장하는 역할  -->
             <input type="file" onchange="onimgChange(event)" name="petPhoto" id="image" accept="image/*">
         </div>
-
+        <!-- 댓글 달기 버튼 -> 파이어베이스에 업로드 버튼 -->
         <button onclick="save_comment(event)" type="button" class="btn btn-dark">응원 남기기</button>
     </div>
     <div id="comment-list">
