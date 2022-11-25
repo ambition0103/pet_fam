@@ -4,13 +4,11 @@ const routes = {
   404: "/pages/404.html",
   "/": "/pages/auth.html",
   fanLog: "/pages/fanLog.html",
-  changeprofile: "/pages/profile.html",
+  profile: "/pages/profile.html",
   petlife: "/pages/petlife.html",
   intro: "/pages/intro.html",
-  mypage: "/pages/mypage.html",
 };
 import { getCommentList } from "./pages/fanLog.js";
-import { printMyCommentList } from "./pages/mypage.js";
 
 export const handleLocation = async () => {
   let path = window.location.hash.replace("#", "");
@@ -36,12 +34,13 @@ export const handleLocation = async () => {
 
     document.getElementById("profileImg").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+
   }
-  if (path === "changeprofile") {
+  if (path === "profile") {
     // 프로필 관리 화면 일 때 현재 프로필 사진과 닉네임 할당
-    document.querySelector(".preview-user-icon > img").src =
+    document.getElementById("profileView").src =
       authService.currentUser.photoURL ?? "/assets/blankProfile.webp";
-    document.querySelector(".new-user-nickname").placeholder =
+    document.getElementById("profileNickname").placeholder =
       authService.currentUser.displayName ?? "닉네임 없음";
   }
 
@@ -58,26 +57,15 @@ export const handleLocation = async () => {
     getCommentList();
   }
 
-  if (path === "mypage") {
-    // 프로필 관리 화면 일 때 현재 프로필 사진과 닉네임 할당
-    document.getElementById("profileImg").src =
-      authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
-    document.querySelector(".user-name").textContent =
-      authService.currentUser.displayName ?? "닉네임 없음";
-    document.querySelector(".user-icon-img").src =
-      authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
-    document.querySelector(".post-new-comment").style.display = "none";
-    document.querySelector(".close-newpost-btn").style.display = "none";
-    printMyCommentList();
-  }
-
   if (path === "intro") {
     // 로그인한 회원의 프로필사진과 닉네임을 화면에 표시해줌.
 
     document.getElementById("profileImg").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+
   }
 };
+
 
 export const goToProfile = () => {
   window.location.hash = "#profile";
@@ -93,8 +81,4 @@ export const goTointro = () => {
 
 export const goTohome = () => {
   window.location.hash = "#fanLog";
-};
-
-export const goTomypage = () => {
-  window.location.hash = "#mypage";
 };
