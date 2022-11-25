@@ -3,16 +3,19 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebas
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
-// 아래 데이터는 본인의 Firebase 프로젝트 설정에서 확인할 수 있습니다.
-const firebaseConfig = {
-  apiKey: "AIzaSyD1X761HKgsGp9BDme7LbMEML4CiI-4PGg",
-  authDomain: "sparta-project-abb92.firebaseapp.com",
-  projectId: "sparta-project-abb92",
-  storageBucket: "sparta-project-abb92.appspot.com",
-  messagingSenderId: "227640442522",
-  appId: "1:227640442522:web:a65d84dcacacb5451e2923",
-};
 
+// 아래 데이터는 본인의 Firebase 프로젝트 설정에서 확인할 수 있습니다.
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyASZjiEQQSZIniGUN0Ck-eOPyS88oLh1do",
+  authDomain: "petfam-bb16d.firebaseapp.com",
+  projectId: "petfam-bb16d",
+  storageBucket: "petfam-bb16d.appspot.com",
+  messagingSenderId: "1043207003251",
+  appId: "1:1043207003251:web:12f97f32d0e6d1610fde06",
+  measurementId: "G-HTWLWMMQCF",
+};
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);

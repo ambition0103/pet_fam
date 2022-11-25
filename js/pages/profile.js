@@ -16,21 +16,21 @@ export const changeProfile = async (event) => {
   );
 
   const newNickname = document.getElementById("profileNickname").value;
-  // 프로필 이미지 dataUrl을 Storage에 업로드 후 다운로드 링크를 받아서 photoURL에 저장. 
+  // 프로필 이미지 dataUrl을 Storage에 업로드 후 다운로드 링크를 받아서 photoURL에 저장.
   const imgDataUrl = localStorage.getItem("imgDataUrl");
   let downloadUrl;
   if (imgDataUrl) {
     const response = await uploadString(imgRef, imgDataUrl, "data_url");
     downloadUrl = await getDownloadURL(response.ref);
   }
-  console.log(authService.currentUser)
   await updateProfile(authService.currentUser, {
     displayName: newNickname ? newNickname : null,
     photoURL: downloadUrl ? downloadUrl : null,
   })
     .then(() => {
+      printMyCommentList();
       alert("프로필 수정 완료");
-      window.location.hash = "#fanLog";
+      window.location.hash = "#mypage";
     })
     .catch((error) => {
       alert("프로필 수정 실패");
@@ -39,7 +39,6 @@ export const changeProfile = async (event) => {
 };
 
 export const onFileChange = (event) => {
-  console.log("프로필 사진 변경")
   const theFile = event.target.files[0]; // file 객체
   const reader = new FileReader();
   reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
