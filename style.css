@@ -117,7 +117,7 @@ body {
   border: 1px solid black;
   padding: 40px;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: bisque;
   min-width: 350px;
 }
 #authTitle {
