@@ -181,7 +181,7 @@ export const getCommentList = async () => {
       }" alt="" /></p>
       <p class="commentText" style="font-size: small;">${cmtObj.text}</p>
                   <p id="${cmtObj.id
-      }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30"/><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
+      }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30"/><button class="updateBtn" onclick="update_comment(event)" style="background-color: #F6C3CF;">완료</button></p>
       </div>
                   <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${cmtObj.profileImg
       }" alt="profileImg" /><span>${cmtObj.nickname ?? "닉네임 없음"
@@ -190,9 +190,9 @@ export const getCommentList = async () => {
         .slice(0, 25)}</div></footer>
               </blockquote>
               <div class="${isOwner ? "updateBtns" : "noDisplay"}">
-                   <button onclick="onEditing(event)" class="editBtn btn btn-dark">수정</button>
+                   <button onclick="onEditing(event)" class="editBtn btn btn-dark" style="background-color: #F6C3CF;">수정</button>
                 <button name="${cmtObj.id
-      }" onclick="delete_comment(event)" class="deleteBtn btn btn-dark">삭제</button>
+      }" onclick="delete_comment(event)" class="deleteBtn btn btn-dark" style="background-color: #F6C3CF;">삭제</button>
               </div>            
             </div>
      </div>`;
