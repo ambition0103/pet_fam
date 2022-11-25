@@ -28,8 +28,10 @@ export const changeProfile = async (event) => {
     photoURL: downloadUrl ? downloadUrl : null,
   })
     .then(() => {
+
+      printMyCommentList();
       alert("프로필 수정 완료");
-      window.location.hash = "#fanLog";
+      window.location.hash = "#mypage";
     })
     .catch((error) => {
       alert("프로필 수정 실패");

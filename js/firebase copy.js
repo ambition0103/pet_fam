@@ -5,13 +5,17 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/9.14.0/firebase
 import { getStorage } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 
 // 아래 데이터는 본인의 Firebase 프로젝트 설정에서 확인할 수 있습니다.
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBLC85NBtPaLOoWyBoSKwexacA6bC4qZX0",
-  authDomain: "privatefanbook.firebaseapp.com",
-  projectId: "privatefanbook",
-  storageBucket: "privatefanbook.appspot.com",
-  messagingSenderId: "691166733828",
-  appId: "1:691166733828:web:7fb27f2b27fb95304fb751",
+  apiKey: "AIzaSyASZjiEQQSZIniGUN0Ck-eOPyS88oLh1do",
+  authDomain: "petfam-bb16d.firebaseapp.com",
+  projectId: "petfam-bb16d",
+  storageBucket: "petfam-bb16d.appspot.com",
+  messagingSenderId: "1043207003251",
+  appId: "1:1043207003251:web:12f97f32d0e6d1610fde06",
+  measurementId: "G-HTWLWMMQCF",
 };
 
 // Initialize Firebase

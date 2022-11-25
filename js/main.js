@@ -1,7 +1,15 @@
 import { handleAuth, onToggle, logout } from "./pages/auth.js";
 import { changeProfile, onFileChange } from "./pages/profile.js";
 import { socialLogin } from "./pages/auth.js";
-import { handleLocation, goToProfile, goTointro, goTopetlife, goTohome } from "./router.js";
+
+import {
+  handleLocation,
+  goToProfile,
+  goTointro,
+  goTopetlife,
+  goTohome,
+  goTomypage,
+} from "./router.js";
 import { authService } from "./firebase.js";
 import {
   save_comment,
@@ -9,6 +17,17 @@ import {
   onEditing,
   delete_comment,
 } from "./pages/fanLog.js";
+
+import {
+  printMyCommentList,
+  openModal,
+  closeModal,
+  modalOpenEdit,
+  modalEdit,
+  modalDel,
+  createNewComment,
+  onPhotoUploaded,
+} from "./pages/mypage.js";
 
 // url 바뀌면 handleLocation 실행하여 화면 변경
 window.addEventListener("hashchange", handleLocation);
@@ -50,3 +69,12 @@ window.delete_comment = delete_comment;
 window.goTopetlife = goTopetlife;
 window.goTointro = goTointro;
 window.goTohome = goTohome;
+window.goTomypage = goTomypage;
+window.printMyCommentList = printMyCommentList;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.modalOpenEdit = modalOpenEdit;
+window.modalEdit = modalEdit;
+window.modalDel = modalDel;
+window.createNewComment = createNewComment;
+window.onPhotoUploaded = onPhotoUploaded;
