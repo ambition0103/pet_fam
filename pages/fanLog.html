@@ -1,68 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/index.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <title>PET FAM</title>
+  </head>
 
-    <title>Document</title>
-
-</head>
-
-<body>
+  <body>
     <div class="mainLogo">
-        <a onclick="goTohome()">
-            <img class="mainLogoImg" src="assets/img/miniLogo.jpg" alt="">
-        </a>
+      <a onclick="goTohome()">
+        <img class="mainLogoImg" src="assets/img/miniLogo.jpg" alt="" />
+      </a>
     </div>
     <div class="profile">
-        <div>
-            <img id="profileImg" src="/assets/blankProfile.webp" alt="프로필">
-            <button class="logoutBtn" id="logoutBtn" onclick="logout()">로그아웃</button>
-            <button class="mypageBtn" id="mypageBtn" onclick="goToProfile()">마이페이지</button>
-        </div>
+      <div>
+        <img id="profileImg" src="/assets/blankProfile.webp" alt="프로필" />
+        <button class="logoutBtn" id="logoutBtn" onclick="logout()">
+          로그아웃
+        </button>
+        <button class="mypageBtn" id="mypageBtn" onclick="goTomypage()">
+          마이페이지
+        </button>
+      </div>
     </div>
 
     <header class="logo"></header>
     <nav id="main-nav">
-        <!-- <div class="intro"> <a href="#intro" onclick="route(event)">pet-fam 이란</a> </div>
+      <!-- <div class="intro"> <a href="#intro" onclick="route(event)">pet-fam 이란</a> </div>
         <div class="petlife"> <a href="#petlife" onclick="route(event)">애견 일상</a></div> -->
 
-        <button class="introBtn" onclick="goTointro()">pet-fam 이란</button>
-        <button class="petlifeBtn" onclick="goTopetlife()">애견 일상</button>
+      <button class="introBtn" onclick="goTointro()">pet-fam 이란</button>
+      <button class="petlifeBtn" onclick="goTopetlife()">애견 일상</button>
     </nav>
     <div id="main-page">
-        <div class="playerBox">
-            <div class="mideaBackground">
-                <div class="petMidea"><iframe width="10" height="10" src="https://www.youtube.com/embed/DyK39yYSpNE"
-                        title="YouTube video player" frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe></div>
-            </div>
-            <div class="petArticle">
-                <div class="checkList">
-
-                    <div>
-                        <span class="checkListPoint">반려동물</span>
-                        <span>입양 전</span>
-                    </div>
-                    <span>체크리스트</span>
-                    <ol>
-                        <li>현재 집에 같이 거주중인 구성원이 모두 허락했나요?</li>
-                        <li>털 알레르기 있는 사람은 없나요?</li>
-                        <li>결혼, 이사 등 상황에서도 끝까지 책임 질 수 있나요?</li>
-                        <li>데려오려는 반려동물의 습성에 대해 공부 하셨나요?</li>
-                    </ol>
-                </div>
-            </div>
+      <div class="playerBox">
+        <div class="mideaBackground">
+          <div class="petMidea">
+            <iframe
+              width="10"
+              height="10"
+              src="https://www.youtube.com/embed/DyK39yYSpNE"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
+        <div class="petArticle">
+          <div class="checkList">
+            <div>
+              <span class="checkListPoint">반려동물</span>
+              <span>입양 전</span>
+            </div>
+            <span>체크리스트</span>
+            <ol>
+              <li>현재 집에 같이 거주중인 구성원이 모두 허락했나요?</li>
+              <li>털 알레르기 있는 사람은 없나요?</li>
+              <li>결혼, 이사 등 상황에서도 끝까지 책임 질 수 있나요?</li>
+              <li>데려오려는 반려동물의 습성에 대해 공부 하셨나요?</li>
+            </ol>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="mainpageImg">
-    </div>
-</body>
-
+    <div class="mainpageImg"></div>
+  </body>
 </html>
