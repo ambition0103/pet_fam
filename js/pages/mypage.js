@@ -9,7 +9,7 @@ import {
   deleteDoc,
   addDoc,
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
-import { db, authService, storageService } from "../firebase.js";
+import { dbService, authService, storageService } from "../firebase.js";
 import {
   ref,
   uploadString,
@@ -24,7 +24,10 @@ export const printMyCommentList = async () => {
   let cmtObjList = [];
   const currentUid = authService.currentUser.uid;
 
-  const q = query(collection(db, "comments"), orderBy("createdAt", "desc"));
+  const q = query(
+    collection(dbService, "comments"),
+    orderBy("createdAt", "desc")
+  );
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     const commentObj = {
@@ -99,7 +102,7 @@ export const openModal = async (event) => {
   document.querySelector("body").style.overflowY = "hidden";
 
   try {
-    let commentRef = await getDoc(doc(db, "comments", target));
+    let commentRef = await getDoc(doc(dbService, "comments", target));
     let loc = commentRef._document.data.value.mapValue.fields;
 
     const img = document.querySelector(".modal-photo");
@@ -213,7 +216,7 @@ export const modalEdit = async (event) => {
   const newText = textIpt.value;
 
   const target = document.querySelector(".modal-date").textContent;
-  let commentRef = await doc(db, "comments", target);
+  let commentRef = await doc(dbService, "comments", target);
 
   newPhotoIpt.style.display = "none";
 
@@ -252,7 +255,7 @@ export const modalEdit = async (event) => {
         textIpt.style.display = "none";
         newPhotoIpt.style.display = "none";
 
-        title.style.display = "inline-block";
+        title.style.display = "block";
         text.style.display = "inline-block";
 
         title.innerText = newTitle;
@@ -297,11 +300,12 @@ export const modalDel = async (event) => {
   event.preventDefault();
   const target = document.querySelector(".modal-date").textContent;
   try {
-    await deleteDoc(doc(db, "comments", target));
+    await deleteDoc(doc(dbService, "comments", target));
     const modal = document.querySelector(".contents-modal");
     const modal_container = document.querySelector(".content-modal-container");
     modal_container.style.zIndex = 0;
     modal.style.display = "none";
+    document.querySelector("body").style.overflowY = "scroll";
     printMyCommentList();
   } catch (error) {
     alert(error);
@@ -340,7 +344,7 @@ export const createNewComment = async (event) => {
     return;
   } else {
     try {
-      await addDoc(collection(db, "comments"), {
+      await addDoc(collection(dbService, "comments"), {
         title: title.value,
         text: text.value,
         createdAt: Date.now(),
@@ -379,13 +383,13 @@ export const onPhotoUploaded = async (event) => {
   };
 };
 
-export const openPost = (event) => {
+export const openPost = () => {
   document.querySelector(".post-new-comment").style.display = "flex";
   document.querySelector(".close-newpost-btn").style.display = "inline-block";
   document.querySelector(".new-post-btn").style.display = "none";
 };
 
-export const closePost = (event) => {
+export const closePost = () => {
   document.querySelector(".post-new-comment").style.display = "none";
   document.querySelector(".close-newpost-btn").style.display = "none";
   document.querySelector(".new-post-btn").style.display = "inline-block";
@@ -413,7 +417,7 @@ export const changePostImg = (event) => {
   };
 };
 
-export const goToTop = (event) => {
+export const goToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 

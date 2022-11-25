@@ -1,18 +1,25 @@
-<div id="profilePage">
-    <section id="profileWrapper">
-        <h2>프로필 관리</h2>
-        <form id="profileForm" onsubmit="changeProfile(event)">
-
-
-            <label id="imgLabel" for="imgInput">
-                <img id="profileView" src="/assets/blankProfile.webp" />
-                <input onchange="onFileChange(event)" id="imgInput" type="file" accept="images/*" />
-            </label>
-            <div>
-                <input id="profileNickname" type="text" placeholder="현재 닉네임" value="" />
-            </div>
-            <br />
-            <input id="profileBtn" type="submit" value="프로필 변경" />
-        </form>
-    </section>
+<title>PET FAM | 프로필 수정</title>
+<link rel="stylesheet" href="../css/profile.css" />
+<div class="container">
+  <button onclick="goTomypage()" class="profile_to_mypage btn">
+    마이 페이지로
+  </button>
+  <form onsubmit="onChangeProfile(event)" class="profile">
+    <div class="change-profile-container">
+      <label class="preview-user-icon" for="new-user-icon-ipt">
+        <img src="" />
+        <input
+          class="hiddenIpt"
+          id="new-user-icon-ipt"
+          onchange="changeUserProfileImg(event)"
+          type="file"
+        />
+      </label>
+      <div class="new-nicknames">
+        <label for="new-user-nickname">새로운 닉네임:</label>
+        <input type="text" id="new-user-nickname" class="new-user-nickname" />
+      </div>
+      <input type="submit" class="btn submit-change-profile" value="수정하기" />
+    </div>
+  </form>
 </div>

@@ -1,23 +1,64 @@
-<div id="authPage">
-    <div id="authWrapper">
-        <h1 id="authTitle">로그인 페이지</h1>
-        <form onsubmit="handleAuth(event)">
-            <div class="authInput">
-                <div>EMAIL:</div>
-                <input id="email" type="text" />
-            </div>
-            <div class="authInput">
-                <div>PW:</div>
-                <input id="pw" type="password" />
-            </div>
-            <section id="authBtnSection">
-                <input type="submit" id="authBtn" value="로그인" />
-                <p id="authToggle" onclick="onToggle()">회원가입 화면으로</p>
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/auth.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+
+    <title>PET FAM</title>
+  </head>
+
+  <body>
+    <div id="background">
+      <section class="login-form">
+        <div id="authPage">
+          <div id="authWrapper">
+            <h1 id="authTitle">로그인</h1>
+            <form onsubmit="handleAuth(event)">
+              <div class="int-area">
+                <div class="authInput">
+                  <div>EMAIL</div>
+                  <input id="email" type="text" />
+                </div>
+              </div>
+              <div class="int-area">
+                <div class="authInput">
+                  <div>PW</div>
+                  <input id="pw" type="password" />
+                </div>
+              </div>
+              <section id="authBtnSection">
+                <input
+                  class="btn-signin"
+                  type="submit"
+                  id="authBtn"
+                  value="로그인"
+                />
+                <p class="caption" id="authToggle" onclick="onToggle()">
+                  회원가입 하러가자!
+                </p>
+              </section>
+            </form>
+
+            <section class="socialBtns">
+              <button
+                class="btn-google"
+                name="google"
+                onclick="socialLogin(event)"
+              >
+                <i class="fab fa-google"></i>
+                <span class="googlefont">goole login</span>
+              </button>
+              <!-- <button name="github" onclick="socialLogin(event)">Github Login</button> -->
             </section>
-        </form>
-        <section class="socialBtns">
-            <button name="google" onclick="socialLogin(event)">Google Login</button>
-            <button name="github" onclick="socialLogin(event)">Github Login</button>
-        </section>
+          </div>
+        </div>
+      </section>
     </div>
-</div>
+  </body>
+</html>
