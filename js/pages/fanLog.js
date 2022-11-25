@@ -13,6 +13,7 @@ import {
   ref,
   uploadString,
   getDownloadURL,
+  getStorage,
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 
@@ -23,18 +24,17 @@ export const save_comment = async (event) => {
     storageService,
     `${authService.currentUser.uid}/${uuidv4()}`
   );
-
   // 프로필 이미지 dataUrl을 Storage에 업로드 후 다운로드 링크를 받아서 photoURL에 저장.
-  const imgDataUrl2 = localStorage.getItem("imgDataUrl");
+  const imgDataUrl2 = localStorage.getItem("petImgDataUrl");
+  console.log("imgDataUrl2입니다", imgDataUrl2)
   let downloadUrl;
   if (imgDataUrl2) {
     const response = await uploadString(imgRef, imgDataUrl2, "data_url");
-    console.log("response는", response)
     downloadUrl = await getDownloadURL(response.ref);
   }
 
 
-
+  console.log(downloadUrl)
   const comment = document.getElementById("comment");
   const { uid, photoURL, displayName } = authService.currentUser;
   try {
@@ -44,7 +44,7 @@ export const save_comment = async (event) => {
       creatorId: uid,
       profileImg: photoURL,
       nickname: displayName,
-      petphoto: downloadUrl,
+      petphoto: downloadUrl ?? null,
     });
     comment.value = "";
     getCommentList();
@@ -63,7 +63,7 @@ export const onimgChange = (event) => {
   reader.onloadend = (finishedEvent) => {
     // 파일리더가 파일객체를 data URL로 변환 작업을 끝났을 때
     const imgDataUrl = finishedEvent.currentTarget.result;
-    localStorage.setItem("imgDataUrl", imgDataUrl);
+    localStorage.setItem("petImgDataUrl", imgDataUrl);
   };
 };
 
@@ -121,6 +121,17 @@ export const delete_comment = async (event) => {
 
 
 export const getCommentList = async () => {
+
+  const storage = getStorage();
+  let noImgUrl = "";
+  await getDownloadURL(ref(storage, 'imgfile/noImages.jfif'))
+    .then((url) => {
+      noImgUrl = url;
+    })
+    .catch((error) => {
+      console.log(error)
+      // Handle any errors
+    });
   let cmtObjList = [];
   const q = query(
     collection(dbService, "comments"),
@@ -136,16 +147,21 @@ export const getCommentList = async () => {
   });
   const commnetList = document.getElementById("comment-list");
   const currentUid = authService.currentUser.uid;
+  const imgButton = document.getElementById("image");
+  imgButton.value = "";
   commnetList.innerHTML = "";
-  console.log(cmtObjList)
   cmtObjList.forEach((cmtObj) => {
+    if (cmtObj.petphoto === undefined || cmtObj.petphoto === null) {
+      console.log("noImgUrl", noImgUrl)
+      cmtObj.petphoto = noImgUrl;
+    }
     const isOwner = currentUid === cmtObj.creatorId;
     const temp_html = `<div class="card commentCard">
           <div class="card-body">
               <blockquote class="blockquote mb-0">
                   <p class="commentText">${cmtObj.text}</p>
                   <p> <img class="cmtImg" width="100px" height="100px" src="${cmtObj.petphoto
-      }" alt="profileImg" /></p>
+      }" alt="" /></p>
                   <p id="${cmtObj.id
       }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
                   <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${cmtObj.profileImg
