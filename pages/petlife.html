@@ -40,18 +40,23 @@
             <img id="profileImg_writer" width="50px" height="50px" src="/assets/blankProfile.webp" />
             <span id="nickname">닉네임</span>
         </div>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="comment"
-                style="height: 100px"></textarea>
-            <label for="floatingTextarea2">응원댓글</label>
-            <input type="file" name="petPhoto" id="petPhoto" accept="image/*">
-        </div>
+        <label for="exampleFormControlInput1" class="form-label">
+            <input type="email" class="form-control" id="title" placeholder="제목을 적어주세요.">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="comment"
+                    style="height: 100px"></textarea>
+                <label for="floatingTextarea2">일상을 적어주세요.</label>
+                <div class="input-group">
+                    <input type="file" class="form-control" onchange="onimgChange(event)" name="petphoto" id="image"
+                        accept="image/*" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                    <button class="btn btn-outline-secondary" onclick="save_comment(event)" type="button"
+                        id="inputGroupFileAddon04"
+                        style="background-color:#F6C3CF; color:white; border-color: #F6C3CF;">일상
+                        남기기</button>
+                </div>
+                <div id="comment-list">
 
-        <button onclick="save_comment(event)" type="button" class="btn btn-dark">응원 남기기</button>
-    </div>
-    <div id="comment-list">
-
-    </div>
+                </div>
 </body>
 
 </html>
