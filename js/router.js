@@ -50,11 +50,11 @@ export const handleLocation = async () => {
     // document.getElementById("nickname").textContent =
     //   authService.currentUser.displayName ?? "닉네임 없음";
 
-    document.getElementById("profileImg").src =
+    document.querySelector(".cmtImg").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+    document.getElementById("nickname").textContent =
+      authService.currentUser.displayName ?? "닉네임 없음";
 
-    document.getElementById("profileImg_writer").src =
-      authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
     getCommentList();
   }
 
