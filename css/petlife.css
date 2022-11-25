@@ -4,13 +4,6 @@
     margin-left: 80px;
 }
 
-input[type=file]::file-selector-button {
-    width: 100px;
-    height: 45px;
-    background:#F6C3CF;
-    color:white;
-    cursor: pointer;
-}
 
 .mainLogoImg {
     position: absolute;

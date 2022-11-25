@@ -1,6 +1,7 @@
 import { handleAuth, onToggle, logout } from "./pages/auth.js";
 import { changeProfile, onFileChange } from "./pages/profile.js";
 import { socialLogin } from "./pages/auth.js";
+
 import {
   handleLocation,
   goToProfile,
@@ -16,6 +17,7 @@ import {
   onEditing,
   delete_comment,
 } from "./pages/fanLog.js";
+
 import {
   printMyCommentList,
   openModal,
@@ -25,6 +27,12 @@ import {
   modalDel,
   createNewComment,
   onPhotoUploaded,
+  openPost,
+  closePost,
+  goToTop,
+  changePostImg,
+  changeUserProfileImg,
+  onChangeProfile,
 } from "./pages/mypage.js";
 
 // url 바뀌면 handleLocation 실행하여 화면 변경
@@ -76,3 +84,9 @@ window.modalEdit = modalEdit;
 window.modalDel = modalDel;
 window.createNewComment = createNewComment;
 window.onPhotoUploaded = onPhotoUploaded;
+window.openPost = openPost;
+window.closePost = closePost;
+window.goToTop = goToTop;
+window.changePostImg = changePostImg;
+window.changeUserProfileImg = changeUserProfileImg;
+window.onChangeProfile = onChangeProfile;
