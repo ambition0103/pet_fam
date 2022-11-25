@@ -26,7 +26,6 @@ export const save_comment = async (event) => {
   );
   // 프로필 이미지 dataUrl을 Storage에 업로드 후 다운로드 링크를 받아서 photoURL에 저장.
   const imgDataUrl2 = localStorage.getItem("petImgDataUrl");
-  console.log("imgDataUrl2입니다", imgDataUrl2)
   let downloadUrl;
   if (imgDataUrl2) {
     const response = await uploadString(imgRef, imgDataUrl2, "data_url");
@@ -34,19 +33,22 @@ export const save_comment = async (event) => {
   }
 
 
-  console.log(downloadUrl)
   const comment = document.getElementById("comment");
+  const title = document.getElementById("title");
+
   const { uid, photoURL, displayName } = authService.currentUser;
   try {
     await addDoc(collection(dbService, "comments"), {
+      title: title.value,
       text: comment.value,
       createdAt: Date.now(),
       creatorId: uid,
       profileImg: photoURL,
       nickname: displayName,
-      petphoto: downloadUrl ?? null,
+      commentImg: downloadUrl ?? null,
     });
     comment.value = "";
+    title.value = "";
     getCommentList();
   } catch (error) {
     alert(error);
@@ -58,7 +60,6 @@ export const save_comment = async (event) => {
 export const onimgChange = (event) => {
   const theFile = event.target.files[0]; // file 객체
   const reader = new FileReader();
-  console.log(reader)
   reader.readAsDataURL(theFile); // file 객체를 브라우저가 읽을 수 있는 data URL로 읽음.
   reader.onloadend = (finishedEvent) => {
     // 파일리더가 파일객체를 data URL로 변환 작업을 끝났을 때
@@ -151,16 +152,16 @@ export const getCommentList = async () => {
   imgButton.value = "";
   commnetList.innerHTML = "";
   cmtObjList.forEach((cmtObj) => {
-    if (cmtObj.petphoto === undefined || cmtObj.petphoto === null) {
-      console.log("noImgUrl", noImgUrl)
-      cmtObj.petphoto = noImgUrl;
+    if (cmtObj.commentImg === undefined || cmtObj.commentImg === null) {
+      cmtObj.commentImg = noImgUrl;
     }
     const isOwner = currentUid === cmtObj.creatorId;
     const temp_html = `<div class="card commentCard">
           <div class="card-body">
               <blockquote class="blockquote mb-0">
+              <p>${cmtObj.title}</p>
                   <p class="commentText">${cmtObj.text}</p>
-                  <p> <img class="cmtImg" width="100px" height="100px" src="${cmtObj.petphoto
+                  <p> <img class="cmtImg" width="100px" height="100px" src="${cmtObj.commentImg
       }" alt="" /></p>
                   <p id="${cmtObj.id
       }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
