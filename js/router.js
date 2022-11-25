@@ -49,9 +49,6 @@ export const handleLocation = async () => {
     // 로그인한 회원의 프로필사진과 닉네임을 화면에 표시해줌.
     // document.getElementById("nickname").textContent =
     //   authService.currentUser.displayName ?? "닉네임 없음";
-
-    document.querySelector(".cmtImg").src =
-      authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
     document.getElementById("nickname").textContent =
       authService.currentUser.displayName ?? "닉네임 없음";
 

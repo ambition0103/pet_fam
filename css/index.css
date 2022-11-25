@@ -1,279 +1,251 @@
 .mainLogo {
-    width: 100vw;
-    height: 50px;
-    margin-left: 80px;
+  width: 100vw;
+  height: 50px;
+  margin-left: 80px;
 }
 
-
 .mainLogoImg {
-    position: absolute;
-    margin-top: 30px;
-    width: 70px;
-    height: 70px;
-    background-image: url("../assets/img/miniLogo.jpg");
-    border-radius: 50%;
-    cursor: pointer;
-
+  position: absolute;
+  margin-top: 30px;
+  width: 70px;
+  height: 70px;
+  background-image: url("../assets/img/miniLogo.jpg");
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 .profile {
-    width: 90vw;
-    height: 40px;
-    margin: auto;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-
+  width: 90vw;
+  height: 40px;
+  margin: auto;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
 
 .profile div {
-    width: 400px;
-    height: 40px;
-    /* background-color: #F6C3CF; */
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin-right: 5vw;
+  width: 400px;
+  height: 40px;
+  /* background-color: #F6C3CF; */
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 5vw;
 }
 
 .profile img {
-    width: 50px;
-    height: 50px;
-    background-image: url("../assets/img/miniLogo.jpg");
-    border-radius: 50%;
-    border: 5px;
-    border-color: black;
+  width: 50px;
+  height: 50px;
+  background-image: url("../assets/img/miniLogo.jpg");
+  border-radius: 50%;
+  border: 5px;
+  border-color: black;
 }
 
 .logoutBtn,
 .mypageBtn {
-    width: 200px;
-    border: 0;
-    background-color: white;
-    cursor: pointer;
-    /* background-color: aqua; */
-    margin: auto 20px;
-    font-size: 16px;
+  width: 200px;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
+  /* background-color: aqua; */
+  margin: auto 20px;
+  font-size: 16px;
 }
 
 .logoutBtn:hover,
 .mypageBtn:hover {
-    border: 0;
-    color: white;
-    background-color: gray;
-    border-radius: 20px;
-    cursor: pointer;
-    /* background-color: aqua; */
+  border: 0;
+  color: white;
+  background-color: gray;
+  border-radius: 20px;
+  cursor: pointer;
+  /* background-color: aqua; */
 }
 
-
-
 header {
-    width: 90vw;
-    height: 25vw;
-    margin: 20px auto 20px auto;
+  width: 90vw;
+  height: 25vw;
+  margin: 20px auto 20px auto;
 
-    background: url("../assets/img/logo.jpg") no-repeat center;
-    background-color: #F6C3CF;
-    background-size: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+  background: url("../assets/img/logo.jpg") no-repeat center;
+  background-color: #f6c3cf;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 nav {
-    width: 90vw;
-    height: 60px;
-    margin: auto;
-    background-color: #F6C3CF;
-    display: flex;
+  width: 90vw;
+  height: 60px;
+  margin: auto;
+  background-color: #f6c3cf;
+  display: flex;
 
-    justify-content: center;
-    align-items: center;
-
+  justify-content: center;
+  align-items: center;
 }
 
 nav button {
-    font-size: 26px;
-    margin: 60px;
-    background-color: #F6C3CF;
-    cursor: pointer;
-    border: 0px;
+  font-size: 1rem;
+  margin: 60px;
+  background-color: #f6c3cf;
+  cursor: pointer;
+  border: 0px;
 }
 
-
 .playerBox {
-    width: 90vw;
-    height: 30vw;
-    /* background-color: gray; */
-
-    display: flex;
-    margin: auto;
+  width: 90vw;
+  height: 30vw;
+  display: flex;
+  margin: auto;
 }
 
 .mideaBackground {
-    width: 60vw;
-    height: 30vw;
-    background-image: url("../assets/img/media_back.jpg");
-    background-size: cover;
-    background-position: 70px;
-    margin-top: 20px;
-
+  width: 60vw;
+  height: 30vw;
+  background-image: url("../assets/img/media_back.jpg");
+  background-size: cover;
+  background-position: 70px;
+  margin-top: 20px;
 }
 
 .playerBox .petMidea {
-    position: relative;
-    width: 40vw;
-    height: 20vw;
-    background-color: aqua;
-    margin: 30px;
-
+  position: relative;
+  width: 40vw;
+  height: 20vw;
+  background-color: aqua;
+  margin: 30px;
 }
 
-.petMidea>iframe {
+.petMidea > iframe {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.playerBox .petArticle {
+  width: 30vw;
+  height: 30vw;
+  background-color: #92989c77;
+  margin-top: 20px;
+  margin-left: auto;
+  font-size: 1.5vw;
+  /* color: white; */
+  font-weight: bold;
+}
+
+.checkList {
+  margin: 20px;
+}
+
+.checkListPoint {
+  color: #ff4c00;
+}
+
+.checkList li {
+  margin-top: 20px;
+}
+
+section {
+  border: 10px solid rgba(black, 0.1);
+  /* background-color: #F6C3CF; */
+  margin: 40px auto;
+  height: auto;
+  width: 90vw;
+}
+
+#main-nav a {
+  text-decoration: none;
+  color: black;
+}
+
+@media (max-width: 1000px) {
+  section .wrap_contents {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+
+  header {
+    height: 200px;
+  }
+
+  .playerBox {
+    height: 40vw;
+  }
+
+  .playerBox .petArticle {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  .playerBox .petMidea {
+    position: relative;
+    width: 60vw;
+    height: 30vw;
+    background-color: aqua;
+    margin: 30px;
+  }
+
+  .petMidea > iframe {
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
+  }
 
-
-
-.playerBox .petArticle {
-
-    width: 30vw;
-    height: 30vw;
-    background-color: #92989c77;
-    margin-top: 20px;
-    margin-left: auto;
-    font-size: 1.5vw;
-    /* color: white; */
-    font-weight: bold;
-
-}
-
-.checkList {
-    margin: 20px;
-}
-
-.checkListPoint {
-    color: #FF4C00;
-}
-
-.checkList li {
-    margin-top: 20px;
-}
-
-section {
-    border: 10px solid rgba(black, .1);
-    /* background-color: #F6C3CF; */
-    margin: 40px auto;
-    height: auto;
+  .mideaBackground {
     width: 90vw;
+    height: 40vw;
+    background-image: url("../assets/img/media_back.jpg");
 
+    background-size: cover;
+    background-position: 70px;
+    margin-top: 20px;
+  }
 
+  nav div {
+    font-size: 20px;
+  }
+
+  .pic {
+    width: 35vw;
+    height: 35vw;
+    margin: 10px auto 10px auto;
+  }
 }
-
-#main-nav a {
-    text-decoration: none;
-    color: black;
-}
-
-@media (max-width: 1000px) {
-    section .wrap_contents {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-    }
-
-    header {
-        height: 200px;
-    }
-
-    .playerBox {
-        height: 40vw;
-    }
-
-    .playerBox .petArticle {
-        width: 0;
-        height: 0;
-        visibility: hidden;
-    }
-
-    .playerBox .petMidea {
-        position: relative;
-        width: 60vw;
-        height: 30vw;
-        background-color: aqua;
-        margin: 30px;
-
-    }
-
-    .petMidea>iframe {
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .mideaBackground {
-        width: 90vw;
-        height: 40vw;
-        background-image: url("../assets/img/media_back.jpg");
-
-        background-size: cover;
-        background-position: 70px;
-        margin-top: 20px;
-
-    }
-
-    nav div {
-        font-size: 20px;
-    }
-
-    .pic {
-        width: 35vw;
-        height: 35vw;
-        margin: 10px auto 10px auto;
-    }
-}
-
-
-
 
 @media (max-width: 480px) {
-    section .wrap_contents {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: auto;
-    }
+  section .wrap_contents {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: auto;
+  }
 
-    header {
-        height: 100px;
-    }
+  header {
+    height: 100px;
+  }
 
+  nav div {
+    font-size: 14px;
+  }
 
-
-    nav div {
-        font-size: 14px;
-    }
-
-
-
-    .pic {
-        width: 280px;
-        height: 280px;
-    }
-
+  .pic {
+    width: 280px;
+    height: 280px;
+  }
 }
 
 .mainpageImg {
-    margin: 100px auto 0px auto;
-    width: 90vw;
-    height: 40vw;
+  margin: 100px auto 0px auto;
+  width: 90vw;
+  height: 40vw;
 
-    background-image: url("/assets/img/mainpageimg.png");
-    background-repeat: no-repeat;
-    background-size: contain;
+  background-image: url("/assets/img/mainpageimg.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
