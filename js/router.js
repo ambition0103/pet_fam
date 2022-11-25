@@ -4,6 +4,7 @@ const routes = {
   404: "/pages/404.html",
   "/": "/pages/auth.html",
   fanLog: "/pages/fanLog.html",
+
   changeprofile: "/pages/profile.html",
   petlife: "/pages/petlife.html",
   intro: "/pages/intro.html",
@@ -11,6 +12,7 @@ const routes = {
 };
 import { getCommentList } from "./pages/fanLog.js";
 import { printMyCommentList } from "./pages/mypage.js";
+
 
 export const handleLocation = async () => {
   let path = window.location.hash.replace("#", "");
@@ -36,6 +38,7 @@ export const handleLocation = async () => {
 
     document.getElementById("profileImg").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+
   }
   if (path === "changeprofile") {
     // 프로필 관리 화면 일 때 현재 프로필 사진과 닉네임 할당
@@ -76,8 +79,10 @@ export const handleLocation = async () => {
 
     document.getElementById("profileImg").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+
   }
 };
+
 
 export const goToProfile = () => {
   window.location.hash = "#profile";
@@ -95,6 +100,8 @@ export const goTohome = () => {
   window.location.hash = "#fanLog";
 };
 
+
 export const goTomypage = () => {
   window.location.hash = "#mypage";
 };
+

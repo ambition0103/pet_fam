@@ -1,6 +1,7 @@
 import { handleAuth, onToggle, logout } from "./pages/auth.js";
 import { changeProfile, onFileChange } from "./pages/profile.js";
 import { socialLogin } from "./pages/auth.js";
+
 import {
   handleLocation,
   goToProfile,
@@ -16,6 +17,7 @@ import {
   onEditing,
   delete_comment,
 } from "./pages/fanLog.js";
+
 import {
   printMyCommentList,
   openModal,
