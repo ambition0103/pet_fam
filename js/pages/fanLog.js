@@ -170,9 +170,10 @@ export const getCommentList = async () => {
                     cmtObj.id
                   }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
                   <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${
-                    cmtObj.profileImg ?? "../assets/blankProfile.webp"
+                    authService.currentUser.photoURL ??
+                    "../assets/blankProfile.webp"
                   }" alt="profileImg" /><span>${
-      cmtObj.nickname ?? "닉네임 없음"
+      authService.currentUser.displayName ?? "닉네임 없음"
     }</span></div><div class="cmtAt">${new Date(cmtObj.createdAt)
       .toString()
       .slice(0, 25)}</div></footer>
