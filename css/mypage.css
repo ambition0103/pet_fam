@@ -308,6 +308,7 @@ header {
 .preview-photo {
   width: 200px;
   height: 200px;
+  object-fit: cover;
 }
 .post-new-comment input[type="text"],
 .post-new-comment input[type="file"],
@@ -364,6 +365,7 @@ header {
 .modal-photo {
   width: 200px;
   height: 200px;
+  object-fit: cover;
 }
 .modal-title-ipt,
 .modal-text-ipt {
