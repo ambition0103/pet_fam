@@ -324,6 +324,7 @@ export const modalDel = async (event) => {
     const modal = document.querySelector(".contents-modal");
     const modal_container = document.querySelector(".content-modal-container");
     modal_container.style.zIndex = 0;
+    modal_container.classList.remove("open-modal");
     modal.style.display = "none";
     document.querySelector("body").style.overflowY = "scroll";
     printMyCommentList();
