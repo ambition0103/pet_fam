@@ -16,6 +16,7 @@ import {
   update_comment,
   onEditing,
   delete_comment,
+  onimgChange,
 } from "./pages/fanLog.js";
 
 import {
@@ -90,3 +91,4 @@ window.goToTop = goToTop;
 window.changePostImg = changePostImg;
 window.changeUserProfileImg = changeUserProfileImg;
 window.onChangeProfile = onChangeProfile;
+window.onimgChange = onimgChange;

@@ -14,6 +14,7 @@ import {
   ref,
   uploadString,
   getDownloadURL,
+  getStorage,
 } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import { updateProfile } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js";
@@ -38,16 +39,26 @@ export const printMyCommentList = async () => {
       cmtObjList.push(commentObj);
     }
   });
+
+  const storage = getStorage();
+
+  let noImgUrl = "";
+  await getDownloadURL(ref(storage, "imgfile/noImages.jfif"))
+    .then((url) => {
+      noImgUrl = url;
+    })
+    .catch((error) => {
+      console.log(error);
+      // Handle any errors
+    });
+
   const commnetList = document.querySelector(".my-contents");
   commnetList.innerHTML = "";
 
   cmtObjList.forEach((cmtObj) => {
     const temp_html = `
         <img
-          src="${
-            cmtObj.commentImg ??
-            "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png"
-          }"
+          src="${cmtObj.commentImg ?? noImgUrl}"
           class="content"
         />
         <div class="my-content-info">
@@ -111,14 +122,23 @@ export const openModal = async (event) => {
     const user = document.querySelector(".modal-user");
     const id = document.querySelector(".modal-date");
 
+    const storage = getStorage();
+    let noImgUrl = "";
+    await getDownloadURL(ref(storage, "imgfile/noImages.jfif"))
+      .then((url) => {
+        noImgUrl = url;
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle any errors
+      });
+
     title.innerText = loc.title.stringValue;
     user.innerText = `- ${authService.currentUser.displayName} -`;
     text.innerText = loc.text.stringValue;
     id.innerText = target;
 
-    img.src =
-      loc.commentImg.stringValue ??
-      "https://jmva.or.jp/wp-content/uploads/2018/07/noimage.png";
+    img.src = loc.commentImg.stringValue ?? noImgUrl;
   } catch (error) {
     alert(error);
   }
@@ -304,6 +324,7 @@ export const modalDel = async (event) => {
     const modal = document.querySelector(".contents-modal");
     const modal_container = document.querySelector(".content-modal-container");
     modal_container.style.zIndex = 0;
+    modal_container.classList.remove("open-modal");
     modal.style.display = "none";
     document.querySelector("body").style.overflowY = "scroll";
     printMyCommentList();

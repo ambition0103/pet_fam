@@ -1,10 +1,6 @@
-body {
-  overflow-x: hidden;
-}
 .mainLogo {
-  width: 100vw;
+  width: 100%;
   height: 50px;
-  margin-left: 80px;
 }
 
 .mainLogoImg {
@@ -20,7 +16,6 @@ body {
 .profile {
   width: 90vw;
   height: 40px;
-  margin: auto;
   position: relative;
   display: flex;
   justify-content: flex-end;
@@ -32,8 +27,7 @@ body {
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: right;
-  margin-right: 5vw;
+  justify-content: flex-end;
 }
 
 .profile img {
@@ -47,21 +41,11 @@ body {
 
 .logoutBtn,
 .mypageBtn {
-  width: 200px;
-  border: 0;
+  border: none;
   background-color: white;
   cursor: pointer;
-  margin: auto 20px;
   font-size: 16px;
-}
-
-.logoutBtn:hover,
-.mypageBtn:hover {
-  border: 0;
-  color: white;
-  background-color: gray;
-  border-radius: 20px;
-  cursor: pointer;
+  text-align: right;
 }
 
 /* 기본 css */
@@ -201,7 +185,6 @@ header {
   border-radius: 0 0 3px 3px;
   justify-content: space-between;
   background-color: whitesmoke;
-  /* margin-top: 10px; */
 }
 
 /* 유저 프로필 */
@@ -267,11 +250,12 @@ header {
   cursor: pointer;
 }
 
-.logoutBtn {
-  width: 150px;
-}
 .my-content-list {
   border-radius: 10px;
+}
+
+.close-newpost-btn {
+  display: none;
 }
 .new-post-btn,
 .close-newpost-btn {
@@ -308,6 +292,7 @@ header {
 .preview-photo {
   width: 200px;
   height: 200px;
+  object-fit: cover;
 }
 .post-new-comment input[type="text"],
 .post-new-comment input[type="file"],
@@ -364,6 +349,7 @@ header {
 .modal-photo {
   width: 200px;
   height: 200px;
+  object-fit: cover;
 }
 .modal-title-ipt,
 .modal-text-ipt {

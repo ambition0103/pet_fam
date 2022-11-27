@@ -87,20 +87,23 @@ export const onToggle = () => {
   const authBtn = document.querySelector("#authBtn");
   const authToggle = document.querySelector("#authToggle");
   const authTitle = document.querySelector("#authTitle");
+  const googleBtn = document.querySelector(".btn-google");
   if (authBtn.value === "로그인") {
     authBtn.value = "회원가입";
-    authToggle.textContent = "로그인 하러멍!";
-    authTitle.textContent = "회원가입";
-    document.getElementById("background").style.backgroundImage = "url('/assets/dog.jpg')";
+    authToggle.textContent = "로그인 화면으로";
+    authTitle.textContent = "회원가입 페이지";
+    document.getElementById("background").style.backgroundImage =
+      "url('/assets/dog.jpg')";
+    googleBtn.style.display = "none";
   } else {
     authBtn.value = "로그인";
-    authToggle.textContent = "회원가입 하러가쟈옹!";
-    authTitle.textContent = "로그인";
-    document.getElementById("background").style.backgroundImage = "url('/assets/cat.jpg')";
-
+    authToggle.textContent = "회원가입 화면으로";
+    authTitle.textContent = "로그인 페이지";
+    document.getElementById("background").style.backgroundImage =
+      "url('/assets/cat.jpg')";
+    googleBtn.style.display = "flex";
   }
 };
-
 
 function changeImg() {
   document.getElementById("imgheart").src = "../img/fullheart-bt.png";
