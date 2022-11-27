@@ -6,6 +6,7 @@ body {
 }
 
 .top-btn {
+  display: none;
   position: fixed;
   bottom: 10px;
   z-index: 70;

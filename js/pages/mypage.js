@@ -404,13 +404,13 @@ export const onPhotoUploaded = async (event) => {
   };
 };
 
-export const openPost = (event) => {
+export const openPost = () => {
   document.querySelector(".post-new-comment").style.display = "flex";
   document.querySelector(".close-newpost-btn").style.display = "inline-block";
   document.querySelector(".new-post-btn").style.display = "none";
 };
 
-export const closePost = (event) => {
+export const closePost = () => {
   document.querySelector(".post-new-comment").style.display = "none";
   document.querySelector(".close-newpost-btn").style.display = "none";
   document.querySelector(".new-post-btn").style.display = "inline-block";
@@ -438,7 +438,7 @@ export const changePostImg = (event) => {
   };
 };
 
-export const goToTop = (event) => {
+export const goToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
@@ -489,4 +489,15 @@ export const onChangeProfile = async (event) => {
       alert("프로필 수정 실패");
       console.log("error:", error);
     });
+};
+
+export const showTopBtn = () => {
+  let top = window.scrollY;
+
+  let topBtn = document.querySelector(".top-btn");
+  if (top > 400) {
+    topBtn.style.display = "inline-block";
+  } else {
+    topBtn.style.display = "none";
+  }
 };
