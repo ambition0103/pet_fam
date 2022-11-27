@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="../css/mypage.css" />
+<button
+  class="top-btn btn"
+  style="background-color: #f6c3cf; display: none"
+  onclick="goToTop(event)"
+>
+  TOP
+</button>
+<div class="content-modal-container">
+  <div class="contents-modal">
+    <div>
+      <button onclick="closeModal(event)" class="modal-close">X</button>
+      <div class="modal-photo-container">
+        <img class="modal-photo" src="" />
+      </div>
+      <input
+        type="file"
+        class="add-new-photo"
+        accept="images/*"
+        onchange="changePostImg(event)"
+      />
+      <div class="modal-texts">
+        <input type="text" class="modal-title-ipt" />
+        <div class="modal-title"></div>
+        <textarea class="modal-text-ipt" cols="30" rows="10"></textarea>
+        <div class="modal-text"></div>
+      </div>
+      <div class="modal-info">
+        <div class="modal-user"></div>
+        <div class="modal-date"></div>
+      </div>
+      <div class="modal-btns">
+        <button
+          class="modal-edit-btn btn"
+          onclick="modalOpenEdit(event)"
+          style="opacity: 0"
+          disabled
+        >
+          수정
+        </button>
+        <button
+          class="modal-edit-confirm-btn btn"
+          onclick="modalEdit(event)"
+          style="opacity: 0"
+          disabled
+        >
+          확인
+        </button>
+        <button
+          onclick="modalDel(event)"
+          style="opacity: 0"
+          disabled
+          class="noDisplay modal-del-btn btn"
+        >
+          삭제
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="mainLogo">
+    <a onclick="goTohome()">
+      <img
+        class="mainLogoImg"
+        onclick="goTohome()"
+        src="assets/img/miniLogo.jpg"
+        alt=""
+      />
+    </a>
+  </div>
+  <div class="profile">
+    <div>
+      <img
+        id="profileImg"
+        onclick="goTomypage()"
+        src="/assets/blankProfile.webp"
+        alt="프로필"
+      />
+      <button class="logoutBtn" id="logoutBtn" onclick="logout()">
+        로그아웃
+      </button>
+    </div>
+  </div>
+  <div class="my-content-list">
+    <a href="#petlife" class="btn edit-profile-btn">애견 일상으로</a>
+    <div class="user-profile">
+      <div class="user-icon">
+        <img
+          class="user-icon-img"
+          src="https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/309/59932b0eb046f9fa3e063b8875032edd_crop.jpeg"
+        />
+      </div>
+      <div class="user-name">닉네임</div>
+    </div>
+    <div data-loc="mc" class="my-contents"></div>
+  </div>
+</div>

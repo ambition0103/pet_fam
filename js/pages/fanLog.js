@@ -185,9 +185,13 @@ export const getCommentList = async () => {
                   <p id="${
                     cmtObj.id
                   }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
-                  <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${
-                    userProfile ?? "../assets/blankProfile.webp"
-                  }" alt="profileImg" /><span>${
+                  <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img onclick="goToUsersCommentList(event)" data-uid=${
+                    cmtObj.creatorId
+                  } class="cmtImg go-to-users-page" width="50px" height="50px" src="${
+      userProfile ?? "../assets/blankProfile.webp"
+    }" alt="profileImg" /><span class="go-to-users-page" onclick="goToUsersCommentList(event)" data-uid=${
+      cmtObj.creatorId
+    }>${
       userNickname ?? "닉네임 없음"
     }</span></div><div class="cmtAt">${new Date(cmtObj.createdAt)
       .toString()

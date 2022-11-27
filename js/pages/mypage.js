@@ -102,13 +102,15 @@ export const openModal = async (event) => {
   const editConfirmBtn = document.querySelector(".modal-edit-confirm-btn");
   const newPhotoIpt = document.querySelector(".add-new-photo");
   const modalBg = document.querySelector(".content-modal-container");
+  const topBtn = document.querySelector(".top-btn");
 
   delBtn.style.display = "inline-block";
+  editConfirmBtn.style.display = "none";
+  newPhotoIpt.style.display = "none";
+  topBtn.style.display = "none";
   modal_container.style.zIndex = 50;
   modal_container.style.display = "flex";
   modal.style.display = "block";
-  editConfirmBtn.style.display = "none";
-  newPhotoIpt.style.display = "none";
   modalBg.classList.add("open-modal");
   document.querySelector("body").style.overflowY = "hidden";
 
@@ -134,7 +136,9 @@ export const openModal = async (event) => {
       });
 
     title.innerText = loc.title.stringValue;
-    user.innerText = `- ${authService.currentUser.displayName} -`;
+    user.innerText = `- ${
+      document.querySelector(".content-user-name").textContent
+    } -`;
     text.innerText = loc.text.stringValue;
     id.innerText = target;
 
@@ -164,7 +168,9 @@ export const closeModal = (event) => {
   const titleIpt = document.querySelector(".modal-title-ipt");
   const textIpt = document.querySelector(".modal-text-ipt");
   const newPhotoIpt = document.querySelector(".add-new-photo");
+  const topBtn = document.querySelector(".top-btn");
 
+  topBtn.style.display = "block";
   title.style.display = "block";
   text.style.display = "block";
   titleIpt.style.display = "none";
@@ -323,10 +329,13 @@ export const modalDel = async (event) => {
     await deleteDoc(doc(dbService, "comments", target));
     const modal = document.querySelector(".contents-modal");
     const modal_container = document.querySelector(".content-modal-container");
+    const topBtn = document.querySelector(".top-btn");
+
     modal_container.style.zIndex = 0;
     modal_container.classList.remove("open-modal");
     modal.style.display = "none";
     document.querySelector("body").style.overflowY = "scroll";
+    topBtn.style.display = "block";
     printMyCommentList();
   } catch (error) {
     alert(error);
@@ -495,9 +504,97 @@ export const showTopBtn = () => {
   let top = window.scrollY;
 
   let topBtn = document.querySelector(".top-btn");
-  if (top > 400) {
-    topBtn.style.display = "inline-block";
+  if (topBtn) {
+    if (top > 400) {
+      topBtn.style.display = "inline-block";
+    } else {
+      topBtn.style.display = "none";
+    }
+  }
+};
+
+export const goToUsersCommentList = (event) => {
+  let usersIcon = event.target.parentNode.children[0].src;
+  let usersNickname = event.target.parentNode.children[1].textContent;
+  let userUid = event.target.dataset.uid;
+
+  localStorage.setItem("usersIcon", usersIcon);
+  localStorage.setItem("usersNickname", usersNickname);
+  localStorage.setItem("usersUid", userUid);
+  showUsersCommentList();
+};
+
+export const showUsersCommentList = async (event) => {
+  let usersIcon = localStorage.getItem("usersIcon");
+  let usersNickname = localStorage.getItem("usersNickname");
+  let usersUid = localStorage.getItem("usersUid");
+
+  if (usersUid === authService.currentUser.uid) {
+    window.location.hash = "#mypage";
   } else {
-    topBtn.style.display = "none";
+    window.location.hash = "#users";
+    let cmtObjList = [];
+
+    const q = query(
+      collection(dbService, "comments"),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      const commentObj = {
+        id: doc.id,
+        ...doc.data(),
+      };
+      if (("commentObj", commentObj.creatorId === usersUid)) {
+        cmtObjList.push(commentObj);
+      }
+    });
+
+    const storage = getStorage();
+
+    let noImgUrl = "";
+    await getDownloadURL(ref(storage, "imgfile/noImages.jfif"))
+      .then((url) => {
+        noImgUrl = url;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    const commnetList = document.querySelector(".my-contents");
+    commnetList.innerHTML = "";
+
+    cmtObjList.forEach((cmtObj) => {
+      const temp_html = `
+          <img
+            src="${cmtObj.commentImg ?? noImgUrl}"
+            class="content"
+          />
+          <div class="my-content-info">
+            <div class="my-content-title">${cmtObj.title}</div>
+            <div class="my-content-desc">${cmtObj.text}</div>
+          </div>
+          <div class="my-content-header">
+            <div class="my-content-container">
+              <div class="content-user-icon">
+                <img
+                  src="${usersIcon ?? "/assets/blankProfile.webp"}"
+                  alt=""
+                />
+              </div>
+              <div class="content-user-name">${
+                usersNickname ?? "닉네임 없음"
+              }</div>
+            </div>
+            <div></div>
+            <div><button class="btn" onclick="openModal(event)" id=${
+              cmtObj.id
+            }>더보기</button></div>
+        </div>`;
+      const div = document.createElement("div");
+      div.classList.add("my-content");
+      div.innerHTML = temp_html;
+      commnetList.appendChild(div);
+    });
   }
 };

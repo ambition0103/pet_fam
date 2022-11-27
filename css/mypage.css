@@ -3,6 +3,10 @@
   height: 50px;
 }
 
+.noDisplay {
+  display: none;
+}
+
 .mainLogoImg {
   position: absolute;
   width: 70px;

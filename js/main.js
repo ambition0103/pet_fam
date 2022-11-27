@@ -35,6 +35,8 @@ import {
   changeUserProfileImg,
   onChangeProfile,
   showTopBtn,
+  showUsersCommentList,
+  goToUsersCommentList,
 } from "./pages/mypage.js";
 
 // url 바뀌면 handleLocation 실행하여 화면 변경
@@ -93,3 +95,5 @@ window.changeUserProfileImg = changeUserProfileImg;
 window.onChangeProfile = onChangeProfile;
 window.onimgChange = onimgChange;
 window.showTopBtn = showTopBtn;
+window.showUsersCommentList = showUsersCommentList;
+window.goToUsersCommentList = goToUsersCommentList;

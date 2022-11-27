@@ -8,6 +8,7 @@ const routes = {
   petlife: "/pages/petlife.html",
   intro: "/pages/intro.html",
   mypage: "/pages/mypage.html",
+  users: "/pages/userspage.html",
 };
 import { getCommentList } from "./pages/fanLog.js";
 import { printMyCommentList } from "./pages/mypage.js";
@@ -68,8 +69,21 @@ export const handleLocation = async () => {
     document.querySelector(".user-icon-img").src =
       authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
     document.querySelector(".post-new-comment").style.display = "none";
-    document.querySelector(".close-newpost-btn").style.display = "none";
+
     printMyCommentList();
+  }
+
+  if (path === "users") {
+    // 프로필 관리 화면 일 때 현재 프로필 사진과 닉네임 할당
+    const usersNickname = localStorage.getItem("usersNickname");
+    const usersIcon = localStorage.getItem("usersIcon");
+    document.getElementById("profileImg").src =
+      authService.currentUser.photoURL ?? "../assets/blankProfile.webp";
+    document.querySelector(".user-icon-img").src =
+      usersIcon ?? "../assets/blankProfile.webp";
+    document.querySelector(".user-name").textContent =
+      usersNickname ?? "닉네임 없음";
+    showUsersCommentList();
   }
 
   if (path === "intro") {
