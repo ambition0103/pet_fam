@@ -158,6 +158,10 @@ export const getCommentList = async () => {
       cmtObj.commentImg = noImgUrl;
     }
     const isOwner = currentUid === cmtObj.creatorId;
+    let userProfile =
+      isOwner === true ? authService.currentUser.photoURL : cmtObj.profileImg;
+    let userNickname =
+      isOwner === true ? authService.currentUser.displayName : cmtObj.nickname;
     const temp_html = `<div class="card commentCard">
           <div class="card-body">
               <blockquote class="blockquote mb-0">
@@ -170,10 +174,9 @@ export const getCommentList = async () => {
                     cmtObj.id
                   }" class="noDisplay"><input class="newCmtInput" type="text" maxlength="30" /><button class="updateBtn" onclick="update_comment(event)">완료</button></p>
                   <footer class="quote-footer"><div>BY&nbsp;&nbsp;<img class="cmtImg" width="50px" height="50px" src="${
-                    authService.currentUser.photoURL ??
-                    "../assets/blankProfile.webp"
+                    userProfile ?? "../assets/blankProfile.webp"
                   }" alt="profileImg" /><span>${
-      authService.currentUser.displayName ?? "닉네임 없음"
+      userNickname ?? "닉네임 없음"
     }</span></div><div class="cmtAt">${new Date(cmtObj.createdAt)
       .toString()
       .slice(0, 25)}</div></footer>
