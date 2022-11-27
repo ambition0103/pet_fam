@@ -256,6 +256,11 @@ header {
 .my-content-list {
   border-radius: 10px;
 }
+
+.close-newpost-btn {
+  display: none;
+}
+
 .new-post-btn,
 .close-newpost-btn {
   margin-top: 10px;
