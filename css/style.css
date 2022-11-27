@@ -5,6 +5,14 @@ body {
   overflow-x: hidden;
 }
 
+.top-btn {
+  position: fixed;
+  bottom: 10px;
+  z-index: 70;
+  right: 20px;
+  background-color: #f6c3cf;
+}
+
 #root {
   overflow: hidden;
 }
